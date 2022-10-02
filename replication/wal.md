@@ -1,5 +1,35 @@
 # Replication using WAL
 
+## Configuration
+- publisher
+```
+# logical
+wal_level=logical
+
+# 적어도 서브스크립션 수만큼은 설정해야함
+max_replication_slots=60
+
+# 적어도 `max_replication_slots` + 물리적인 복제 수
+max_wal_senders=
+```
+
+- subscriber
+```
+# The subscriber also requires the max_replication_slots be set to configure 
+# how many replication origins can be tracked
+# In this case it should be set to at least the number of subscriptions that 
+# will be added to the subscriber.
+max_replication_slots=
+
+# max_logical_replication_workers must be set to at least the number of 
+# subscriptions, again plus some reserve for the table synchronization
+max_logical_replication_workers=
+
+# max_logical_replication_workers + 1
+# some extensions and parallel queries also take worker slots from max_worker_processes
+max_worker_processes=
+```
+
 ## Create replication user on source
 - Create Replication user
 ```bash
