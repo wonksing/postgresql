@@ -81,4 +81,5 @@ psql -U${USER_NAME} ${DATABASE_NAME}
 ```sql
 CREATE EXTENSION pgcrypto;
 CREATE EXTENSION pg_trgm;
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 ```
